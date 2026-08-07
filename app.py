@@ -181,16 +181,3 @@ def fetch_live_inventory(toe_shape, arch_type):
             "buy_url": "https://www.brooksrunning.com"
         }
     ]
-# Displaying Live E-Commerce Results
-st.subheader("🛍️ Real-Time Available Footwear Matches")
-
-live_shoes = fetch_live_inventory(detected_shape, arch_type)
-
-for shoe in live_shoes:
-    st.markdown(f"""
-    <div class="rec-card">
-        <strong>👟 {shoe['title']}</strong> — <span style="color: #38BDF8;">{shoe['price']}</span><br>
-        <span style="color: #CBD5E1; font-size: 0.9rem;">Status: {shoe['availability']}</span><br><br>
-        <a href="{shoe['buy_url']}" target="_blank" style="background-color: #0EA5E9; color: white; padding: 6px 12px; border-radius: 5px; text-decoration: none; font-size: 0.85rem;">Buy Now / Check Stock ↗</a>
-    </div>
-    """, unsafe_allow_html=True)
