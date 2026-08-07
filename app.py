@@ -181,3 +181,45 @@ for shoe in matching_shoes:
         <a href="{shoe['url']}" target="_blank" class="buy-btn">View Specific Product Page ↗</a>
     </div>
     """, unsafe_allow_html=True)
+# Regional Configuration
+COUNTRIES = {
+    "Global / International (USD)": {"currency": "$", "code": "US"},
+    "United States (USD)": {"currency": "$", "code": "US"},
+    "United Kingdom (GBP)": {"currency": "£", "code": "UK"},
+    "Europe (EUR)": {"currency": "€", "code": "EU"},
+    "Pakistan (PKR)": {"currency": "Rs.", "code": "PK"}
+}
+
+st.header("1. Region & Localization")
+selected_country = st.selectbox("Select Your Shopping Region:", list(COUNTRIES.keys()))
+SHOE_DATABASE = [
+    {
+        "name": "Altra Provision 7 / Paradigm",
+        "toe_box": "Wide / Fan-Shaped Forefoot",
+        "arch_support": "Flat Arch / Low Foot Vault (Overpronation Risk)",
+        "feature": "FootShape™ Toe Box + GuideRail™ arch support frame.",
+        "price_usd": "$150",
+        "price_pkr": "Rs. 42,000",
+        "regions": ["Global / International (USD)", "United States (USD)", "Pakistan (PKR)"],
+        "url_us": "https://www.altrarunning.com",
+        "url_pk": "https://www.altrarunning.com" # or local distributor
+    },
+    {
+        "name": "Brooks Adrenaline GTS 23 (Wide 2E)",
+        "toe_box": "Standard / Moderate Taper",
+        "arch_support": "Flat Arch / Low Foot Vault (Overpronation Risk)",
+        "feature": "Structural medial arch support with generous forefoot width.",
+        "price_usd": "$140",
+        "price_gbp": "£130",
+        "regions": ["Global / International (USD)", "United States (USD)", "United Kingdom (GBP)"],
+        "url_us": "https://www.brooksrunning.com/en_us/",
+        "url_uk": "https://www.brooksrunning.com/en_gb/"
+
+
+    }# Filter matching shoes by both Biomechanics AND Selected Region
+matching_shoes = [
+    s for s in SHOE_DATABASE 
+    if (s["arch_support"] == arch_type or s["toe_box"] == detected_shape)
+    and selected_country in s["regions"]
+]
+]
