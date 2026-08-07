@@ -214,11 +214,13 @@ SHOE_DATABASE = [
         "regions": ["Global / International (USD)", "United States (USD)", "United Kingdom (GBP)"],
         "url_us": "https://www.brooksrunning.com/en_us/",
         "url_uk": "https://www.brooksrunning.com/en_gb/"
+```python
+    }
+]  # Closes SHOE_DATABASE
 
-
-    }# Filter matching shoes by both Biomechanics AND Selected Region
+# Filter matching shoes by both Biomechanics AND Selected Region
 matching_shoes = [
-    s for s in SHOE_DATABASE 
+    s for s in SHOE_DATABASE
     if (s["arch_support"] == arch_type or s["toe_box"] == detected_shape)
     and selected_country in s["regions"]
-}
+]
