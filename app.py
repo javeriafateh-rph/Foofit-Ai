@@ -6,13 +6,14 @@ from PIL import Image
 # Page Configuration
 st.set_page_config(page_title="FootFit AI Pro", page_icon="👟", layout="centered")
 
-# CSS Styling with dark/light mode support
+# CSS Styling
 st.markdown("""
     <style>
     .main-title { font-size: 2.2rem; font-weight: 700; text-align: center; margin-bottom: 0px; }
     .subtitle { font-size: 1.1rem; text-align: center; margin-bottom: 25px; opacity: 0.8; }
     .card { background-color: #1E293B; border-left: 5px solid #0EA5E9; padding: 15px; border-radius: 8px; margin-bottom: 15px; color: #FFFFFF; }
     .card h4 { color: #38BDF8 !important; margin-top: 0px; }
+    .guide-box { background-color: #0F172A; border: 1px dashed #38BDF8; padding: 12px 15px; border-radius: 8px; margin-bottom: 15px; color: #CBD5E1; font-size: 0.9rem; }
     .rec-card { background-color: #0F172A; border: 1px solid #334155; padding: 16px; border-radius: 8px; margin-bottom: 12px; color: #F8FAFC; }
     .rec-card strong { font-size: 1.15rem; color: #38BDF8; }
     .buy-btn {
@@ -35,7 +36,7 @@ st.markdown('<div class="subtitle">Real-Time Anatomical Foot Profile & Recommend
 
 st.divider()
 
-# Catalog Database with Structural Attributes
+# Catalog Database with Direct Product Deep Links
 SHOE_DATABASE = [
     {
         "name": "Altra Provision 7 / Paradigm",
@@ -43,15 +44,15 @@ SHOE_DATABASE = [
         "arch_support": "Flat Arch / Low Foot Vault (Overpronation Risk)",
         "feature": "Anatomical FootShape™ toe box prevents metatarsal squeezing; GuideRail™ prevents arch collapse.",
         "price": "$150",
-        "url": "https://www.altrarunning.com"
+        "url": "https://www.altrarunning.com/shop/mens-shoes-running-support/mens-provision-7-al0a7r6e"
     },
     {
-        "name": "Topo Athletic Specter / Phantom",
+        "name": "Topo Athletic Specter 2",
         "toe_box": "Wide / Fan-Shaped Forefoot",
         "arch_support": "High Arch / Rigid Foot Vault (Supination Risk)",
         "feature": "Wide anatomical forefoot chamber paired with maximum shock-absorbing midsole for rigid arches.",
-        "price": "$145",
-        "url": "https://www.topoathletic.com"
+        "price": "$165",
+        "url": "https://www.topoathletic.com/mens-specter-2"
     },
     {
         "name": "Brooks Adrenaline GTS 23 (Wide 2E)",
@@ -59,7 +60,7 @@ SHOE_DATABASE = [
         "arch_support": "Flat Arch / Low Foot Vault (Overpronation Risk)",
         "feature": "Structural medial arch support with wide option to accommodate midfoot pronation.",
         "price": "$140",
-        "url": "https://www.brooksrunning.com"
+        "url": "https://www.brooksrunning.com/en_us/mens-adrenaline-gts-23-supportive-running-shoe/110391.html"
     },
     {
         "name": "Asics Gel-Nimbus 26 (Wide)",
@@ -67,7 +68,7 @@ SHOE_DATABASE = [
         "arch_support": "Neutral Arch",
         "feature": "High-cushion platform with ample forefoot volume for neutral, non-constricting gait.",
         "price": "$160",
-        "url": "https://www.asics.com"
+        "url": "https://www.asics.com/us/en-us/gel-nimbus-26-wide/p/ANA_1011B793-001.html"
     },
     {
         "name": "Nike Air Zoom Pegasus 40",
@@ -75,7 +76,7 @@ SHOE_DATABASE = [
         "arch_support": "Neutral Arch",
         "feature": "Versatile neutral fit designed for standard, tapered foot profiles.",
         "price": "$130",
-        "url": "https://www.nike.com"
+        "url": "https://www.nike.com/t/pegasus-40-mens-road-running-shoes-MC1Ltw/DV3853-001"
     }
 ]
 
@@ -110,6 +111,17 @@ def analyze_foot_contour(pil_image):
 
 # 1. Vision Scanner
 st.header("1. Real-Time AI Vision Scan")
+
+# Photo Guidelines Box
+st.markdown("""
+<div class="guide-box">
+    📸 <b>Photo Guidelines for Best Accuracy:</b><br>
+    • <b>Angle:</b> Take a <b>Top-Down photo</b> (looking straight down at the top of your foot).<br>
+    • <b>Position:</b> Place your foot flat on a plain floor (avoid patterned rugs/towels).<br>
+    • <b>Lighting:</b> Ensure clear lighting so toe edges are visible.
+</div>
+""", unsafe_allow_html=True)
+
 uploaded_file = st.file_uploader("Upload foot photo for automated analysis:", type=["jpg", "png", "jpeg"])
 
 detected_width = 96.5
@@ -141,7 +153,7 @@ arch_type = st.selectbox(
 
 st.divider()
 
-# 3. Dynamic Real-Time Recommendations (Renders Automatically)
+# 3. Dynamic Real-Time Recommendations
 st.header("3. Diagnostic Profile & Recommended Matches")
 
 st.markdown(f"""
@@ -166,6 +178,6 @@ for shoe in matching_shoes:
     <div class="rec-card">
         <strong>👟 <a href="{shoe['url']}" target="_blank" style="color: #38BDF8; text-decoration: underline;">{shoe['name']}</a></strong> — {shoe['price']}<br>
         <span style="color: #CBD5E1; font-size: 0.95rem;">Why it fits: {shoe['feature']}</span><br>
-        <a href="{shoe['url']}" target="_blank" class="buy-btn">View Product Details ↗</a>
+        <a href="{shoe['url']}" target="_blank" class="buy-btn">View Specific Product Page ↗</a>
     </div>
     """, unsafe_allow_html=True)
