@@ -221,5 +221,4 @@ matching_shoes = [
     s for s in SHOE_DATABASE 
     if (s["arch_support"] == arch_type or s["toe_box"] == detected_shape)
     and selected_country in s["regions"]
-]
-]
+}
