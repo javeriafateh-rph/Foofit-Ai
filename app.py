@@ -134,3 +134,50 @@ if st.button("Fetch Real-Time Matches 🚀", type="primary"):
                 <span style="color: #CBD5E1; font-size: 0.95rem;">Why it fits: {shoe['feature']}</span>
             </div>
             """, unsafe_allow_html=True)
+import requests
+
+def fetch_live_inventory(toe_shape, arch_type):
+    """
+    Simulates querying a live retail Storefront API based on foot diagnostics.
+    Replace the API_ENDPOINT and HEADERS with your actual merchant credentials.
+    """
+    API_ENDPOINT = "https://api.yourstore.com/v1/products/search"
+    
+    # Query parameters based on foot assessment
+    params = {
+        "toe_box": toe_shape,
+        "support_type": arch_type,
+        "in_stock": True
+    }
+    
+    headers = {
+        "Authorization": "Bearer YOUR_STOREFRONT_API_TOKEN",
+        "Content-Type": "application/json"
+    }
+
+    try:
+        # Example API request
+        response = requests.get(API_ENDPOINT, params=params, headers=headers, timeout=5)
+        if response.status_code == 200:
+            return response.json()["products"]
+    except Exception as e:
+        # Fallback to local catalog if API request fails or is unconfigured
+        pass
+
+    # Fallback / Simulated Dynamic Data Structure
+    return [
+        {
+            "title": "Altra Paradigm 7 (Wide FootShape)",
+            "price": "$170.00",
+            "availability": "In Stock (Sizes 7-11)",
+            "image": "https://via.placeholder.com/150",
+            "buy_url": "https://www.altrarunning.com"
+        },
+        {
+            "title": "Brooks Adrenaline GTS 23 (Extra Wide 2E)",
+            "price": "$140.00",
+            "availability": "Low Stock (2 remaining)",
+            "image": "https://via.placeholder.com/150",
+            "buy_url": "https://www.brooksrunning.com"
+        }
+    ]
